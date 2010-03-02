@@ -6,9 +6,15 @@
 
 Things covered:
 
- * url(name) => name_path
+Controller:
+
  * redirect => redirect_to
  * before => before_filter
+ * after => after_filter
+
+Controller/View:
+
+ * url(name) => name_path
  * resource(...) => ....._path
  * submit => submit_tag
  * css_include_tag => stylesheet_link_tag
