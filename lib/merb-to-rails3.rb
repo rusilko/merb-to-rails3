@@ -1,14 +1,18 @@
+dir = File.join(File.dirname(__FILE__), "merb-to-rails3")
+require "#{dir}/helpers"
+
 module MerbToRails3
-  module Deprec
-    def merb_deprec(notice=nil)
-      msg = "!!! #{caller.first[/in `(.+)'$/, 1]} IS DEPRECATED (found at #{self.inspect}:#{caller.first[/:(\d+):in/, 1]})"
-      if notice
-        msg << ": #{notice}"
+  class Railtie < Rails::Railtie
+    railtie_name :"merb-to-rails3"
+
+    initializer "merb-to-rails3.rails" do
+      class ApplicationController
+        extend Helpers::Controller
       end
-      Rails.logger.warn(msg)
+
+      module ApplicationHelper
+        include Helpers::View
+      end
     end
   end
 end
-
-dir = File.join(File.dirname(__FILE__), "merb-to-rails3")
-require "#{dir}/helpers"

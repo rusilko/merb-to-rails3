@@ -1,7 +1,13 @@
 module MerbToRails3
   module Helpers
     module ViewAndController
-      include Deprec
+      def merb_deprec(notice=nil)
+        msg = "!!! #{caller.first[/in `(.+)'$/, 1]} IS DEPRECATED (found at #{self.inspect}:#{caller.first[/:(\d+):in/, 1]})"
+        if notice
+          msg << ": #{notice}"
+        end
+        Rails.logger.warn(msg)
+      end
 
       def url(name)
         path = "#{name}_path"
