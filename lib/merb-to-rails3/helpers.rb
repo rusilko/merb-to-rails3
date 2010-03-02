@@ -1,9 +1,11 @@
 module MerbToRails3
   module Helpers
     module ViewAndController
+      include Deprec
+
       def url(name)
         path = "#{name}_path"
-        MerbToRails3.deprec("use #{path}")
+        merb_deprec("use #{path}")
         send(path)
       end
 
@@ -17,17 +19,17 @@ module MerbToRails3
           resources << resources.pop.singularize
         end
         path = "#{resources.join('_')}_path"
-        MerbToRails3.deprec("use #{path}")
+        merb_deprec("use #{path}")
         send(path)
       end
 
       def redirect(*args)
-        MerbToRails3.deprec("use redirect_to")
+        merb_deprec("use redirect_to")
         redirect_to(*args)
       end
 
       def partial(name, opts={})
-        MerbToRails3.deprec("use render :partial")
+        merb_deprec("use render :partial")
         render opts.merge(:partial => name.to_s)
       end
     end
@@ -36,22 +38,22 @@ module MerbToRails3
       include ViewAndController
 
       def submit(value, options)
-        MerbToRails3.deprec("use submit_tag")
+        merb_deprec("use submit_tag")
         submit_tag(value, options)
       end
 
       def css_include_tag(*args)
-        MerbToRails3.deprec("use stylesheet_link_tag")
+        merb_deprec("use stylesheet_link_tag")
         stylesheet_link_tag(*args)
       end
 
       def js_include_tag(*args)
-        MerbToRails3.deprec("use javascript_include_tag")
+        merb_deprec("use javascript_include_tag")
         javascript_include_tag(*args)
       end
 
       def catch_content(name)
-        MerbToRails3.deprec("use yield(#{name})")
+        merb_deprec("use yield(#{name})")
         yield(name) if block_given?
       end
     end
@@ -62,7 +64,7 @@ module MerbToRails3
       end
 
       def before(*args)
-        MerbToRails3.deprec("use before_filter")
+        merb_deprec("use before_filter")
         before_filter(*args)
       end
 
@@ -70,7 +72,7 @@ module MerbToRails3
         include ViewAndController
 
         def redirect(*args)
-          MerbToRails3.deprec("use redirect_to")
+          merb_deprec("use redirect_to")
           redirect_to(*args)
         end
       end
