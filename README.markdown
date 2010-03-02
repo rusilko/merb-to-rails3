@@ -10,4 +10,5 @@ Things covered:
  * redirect => redirect_to
  * before => before_filter
  * resource(...) => ....._path
+ * submit => submit_tag
  

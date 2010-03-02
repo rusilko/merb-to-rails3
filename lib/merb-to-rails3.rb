@@ -38,3 +38,7 @@ def resource(*args)
   send(path)
 end
 
+def submit(value, options)
+  submit_tag(value, options)
+end
+
