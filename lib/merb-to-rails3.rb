@@ -39,6 +39,7 @@ def resource(*args)
 end
 
 def submit(value, options)
+  deprec("use submit_tag")
   submit_tag(value, options)
 end
 
