@@ -54,10 +54,12 @@ def js_include_tag(*args)
 end
 
 def catch_content(name)
+  deprec("use yield(#{name})")
   yield(name) if block_given?
 end
 
 def partial(name, opts={})
+  deprec("use render :partial")
   render opts.merge(:partial => name.to_s)
 end
 
