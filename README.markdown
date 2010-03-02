@@ -11,4 +11,6 @@ Things covered:
  * before => before_filter
  * resource(...) => ....._path
  * submit => submit_tag
+ * css_include_tag => stylesheet_link_tag
+ * js_include_tag => javascript_include_tag
  

@@ -43,3 +43,13 @@ def submit(value, options)
   submit_tag(value, options)
 end
 
+def css_include_tag(*args)
+  deprec("use stylesheet_link_tag")
+  stylesheet_link_tag(*args)
+end
+
+def js_include_tag(*args)
+  deprec("use javascript_include_tag")
+  javascript_include_tag(*args)
+end
+
