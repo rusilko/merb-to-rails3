@@ -68,6 +68,11 @@ module MerbToRails3
         before_filter(*args)
       end
 
+      def after(*args)
+        merb_deprec("use after_filter")
+        after_filter(*args)
+      end
+
       module InstanceMethods
         include ViewAndController
 
