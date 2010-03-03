@@ -29,11 +29,6 @@ module MerbToRails3
         send(path)
       end
 
-      def redirect(*args)
-        merb_deprec("use redirect_to")
-        redirect_to(*args)
-      end
-
       def partial(name, opts={})
         merb_deprec("use render :partial")
         render opts.merge(:partial => name.to_s)
@@ -88,7 +83,15 @@ module MerbToRails3
         include ViewAndController
 
         def redirect(*args)
+          opts = args.dup.extract_options!
+
+          if message = opts.delete(:message)
+            message.each { |type, text| flash[type] = text }
+            merb_deprec("use flash instead of :message option in redirect")
+          end
+
           merb_deprec("use redirect_to")
+
           redirect_to(*args)
         end
       end
