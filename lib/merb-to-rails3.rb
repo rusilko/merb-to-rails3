@@ -6,11 +6,11 @@ module MerbToRails3
     railtie_name :"merb-to-rails3"
 
     initializer "merb-to-rails3.rails" do
-      class ApplicationController
+      class ::ActionController::Base
         extend Helpers::Controller
       end
 
-      module ApplicationHelper
+      module ::ApplicationHelper
         include Helpers::View
       end
     end
