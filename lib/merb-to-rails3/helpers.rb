@@ -16,12 +16,12 @@ module MerbToRails3
       end
 
       def resource(*args)
-        verb = args.pop if args.last.is_a?(Symbol)
+        action = args.pop if args.last.is_a?(Symbol)
         resources = args.map do |a|
           a.to_s.underscore
         end
-        if verb
-          resources.unshift(verb)
+        if action
+          resources.unshift(action)
           resources << resources.pop.singularize
         end
         path = "#{resources.join('_')}_path"
