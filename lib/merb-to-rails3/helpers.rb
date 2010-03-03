@@ -2,7 +2,7 @@ module MerbToRails3
   module Helpers
     module ViewAndController
       def merb_deprec(notice=nil)
-        msg = "!!! #{caller.first[/in `(.+)'$/, 1]} IS DEPRECATED (found at #{self.inspect}:#{caller.first[/:(\d+):in/, 1]})"
+        msg = "!!! #{caller.first[/in `(.+)'$/, 1]} IS DEPRECATED (found at #{self}:#{caller.first[/:(\d+):in/, 1]})"
         if notice
           msg << ": #{notice}"
         end
