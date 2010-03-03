@@ -38,6 +38,11 @@ module MerbToRails3
         merb_deprec("use render :partial")
         render opts.merge(:partial => name.to_s)
       end
+      
+      def message
+        merb_deprec("use flash")
+        flash
+      end
     end
 
     module View
