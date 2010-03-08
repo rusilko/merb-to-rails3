@@ -22,7 +22,7 @@ module MerbToRails3
         end
         if action
           resources.unshift(action)
-          resources << resources.pop.singularize
+          resources << resources.pop.to_s.singularize
         end
         path = "#{resources.join('_')}_path"
         merb_deprec("use #{path}")
