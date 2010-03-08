@@ -16,7 +16,7 @@ module MerbToRails3
       end
 
       def resource(*args)
-        action = args.pop if args.last.is_a?(Symbol)
+        action = args.pop if args.size > 1 && args.last.is_a?(Symbol)
         resources = args.map do |a|
           a.to_s.underscore
         end
