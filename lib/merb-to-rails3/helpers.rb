@@ -1,14 +1,14 @@
+def merb_deprec(notice=nil)
+  msg = "!!! #{caller.first[/in `(.+)'$/, 1]} IS DEPRECATED (found at #{self}:#{caller.first[/:(\d+):in/, 1]})"
+  if notice
+    msg << ": #{notice}"
+  end
+  Rails.logger.warn(msg)
+end
+
 module MerbToRails3
   module Helpers
     module ViewAndController
-      def merb_deprec(notice=nil)
-        msg = "!!! #{caller.first[/in `(.+)'$/, 1]} IS DEPRECATED (found at #{self}:#{caller.first[/:(\d+):in/, 1]})"
-        if notice
-          msg << ": #{notice}"
-        end
-        Rails.logger.warn(msg)
-      end
-
       def url(name)
         path = "#{name}_path"
         merb_deprec("use #{path}")
