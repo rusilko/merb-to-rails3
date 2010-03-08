@@ -17,8 +17,14 @@ module MerbToRails3
 
       def resource(*args)
         action = args.pop if args.size > 1 && args.last.is_a?(Symbol)
+        objects = []
         resources = args.map do |a|
-          (a.is_a?(String) || a.is_a?(Symbol) ? a : a.class).to_s.underscore
+          if a.is_a?(String) || a.is_a?(Symbol)
+            a.to_s.underscore
+          else
+            objects << a
+            a.class.to_s.underscore
+          end
         end
         if action
           resources.unshift(action)
@@ -26,7 +32,7 @@ module MerbToRails3
         end
         path = "#{resources.join('_')}_path"
         merb_deprec("use #{path}")
-        send(path)
+        objects.empty? ? send(path) : send(path, *objects)
       end
 
       def partial(name, opts={})
