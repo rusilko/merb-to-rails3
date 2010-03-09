@@ -1,14 +1,14 @@
+def merb_deprec(notice=nil)
+  msg = "!!! #{caller.first[/in `(.+)'$/, 1]} IS DEPRECATED (found at #{self}:#{caller.first[/:(\d+):in/, 1]})"
+  if notice
+    msg << ": #{notice}"
+  end
+  Rails.logger.warn(msg)
+end
+
 module MerbToRails3
   module Helpers
     module ViewAndController
-      def merb_deprec(notice=nil)
-        msg = "!!! #{caller.first[/in `(.+)'$/, 1]} IS DEPRECATED (found at #{self}:#{caller.first[/:(\d+):in/, 1]})"
-        if notice
-          msg << ": #{notice}"
-        end
-        Rails.logger.warn(msg)
-      end
-
       def url(name)
         path = "#{name}_path"
         merb_deprec("use #{path}")
@@ -16,17 +16,23 @@ module MerbToRails3
       end
 
       def resource(*args)
-        action = args.pop if args.last.is_a?(Symbol)
+        action = args.pop if args.size > 1 && args.last.is_a?(Symbol)
+        objects = []
         resources = args.map do |a|
-          a.to_s.underscore
+          if a.is_a?(String) || a.is_a?(Symbol)
+            a.to_s.underscore
+          else
+            objects << a
+            a.class.to_s.underscore
+          end
         end
         if action
           resources.unshift(action)
-          resources << resources.pop.singularize
+          resources << resources.pop.to_s.singularize
         end
         path = "#{resources.join('_')}_path"
         merb_deprec("use #{path}")
-        send(path)
+        objects.empty? ? send(path) : send(path, *objects)
       end
 
       def partial(name, opts={})
