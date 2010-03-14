@@ -16,7 +16,8 @@ module MerbToRails3
       end
 
       def resource(*args)
-        action = args.pop if args.size > 1 && args.last.is_a?(Symbol)
+        opts_hash = args.last.is_a?(Hash) ? args.pop : {}
+        action = args.pop if args.size > 1 && [:new, :edit, :delete].include?(args.last)
         objects = []
         resources = args.map do |a|
           if a.is_a?(String) || a.is_a?(Symbol)
@@ -32,12 +33,16 @@ module MerbToRails3
         end
         path = "#{resources.join('_')}_path"
         merb_deprec("use #{path}")
-        objects.empty? ? send(path) : send(path, *objects)
+        objects.empty? ? send(path, opts_hash) : send(path, *(objects << opts_hash))
       end
 
       def partial(name, opts={})
         merb_deprec("use render :partial")
-        render opts.merge(:partial => name.to_s)
+        args = { :partial => name.to_s, :locals => opts }
+        if opts.key?(:with)
+          args[:object] = opts.delete(:with)
+        end
+        render args
       end
       
       def message
@@ -67,6 +72,10 @@ module MerbToRails3
       def catch_content(name)
         merb_deprec("use yield(#{name})")
         yield(name) if block_given?
+      end
+
+      def throw_content(name, *args)
+        content_for(name, *args)
       end
     end
 
