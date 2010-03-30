@@ -9,12 +9,12 @@ module MerbToRails3
 
     initializer "merb-to-rails3.rails" do
       class ::ActionController::Base
-        extend  Helpers::Controller
-        include ControllerExceptions
+        extend  MerbToRails3::Helpers::Controller
+        include MerbToRails3::ControllerExceptions
       end
 
       module ::ApplicationHelper
-        include Helpers::View
+        include MerbToRails3::Helpers::View
       end
     end
   end
