@@ -19,5 +19,5 @@ Controller/View:
  * submit => submit_tag
  * css_include_tag => stylesheet_link_tag
  * js_include_tag => javascript_include_tag
- * catch_content(name) => yield(name)
+ * throw_content(name) => content_for(name)
  * partial => render :partial

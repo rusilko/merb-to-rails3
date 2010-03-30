@@ -69,11 +69,6 @@ module MerbToRails3
         javascript_include_tag(*args)
       end
 
-      def catch_content(name)
-        merb_deprec("use yield(#{name})")
-        yield(name) if block_given?
-      end
-
       def throw_content(name, *args, &blk)
         content_for(name, *args, &blk)
       end
