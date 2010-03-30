@@ -74,8 +74,8 @@ module MerbToRails3
         yield(name) if block_given?
       end
 
-      def throw_content(name, *args)
-        content_for(name, *args)
+      def throw_content(name, *args, &blk)
+        content_for(name, *args, &blk)
       end
     end
 
