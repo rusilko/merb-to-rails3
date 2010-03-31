@@ -1,4 +1,3 @@
- * figure out why helper methods added during railtie initialization aren't visible later :)
  * cover all controller methods
  * cover all view helpers
  * add spec matchers and various helper method proxies required in specs (ie "request" etc.)
