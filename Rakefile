@@ -1,11 +1,20 @@
 require 'rubygems'
 require 'rake'
-require 'rake/gempackagetask'
 
-task :default => [:repackage]
+begin
+  require 'jeweler'
 
-spec = eval(File.read('merb-to-rails3.gemspec'))
+  Jeweler::Tasks.new do |gem|
+    gem.name        = 'merb-to-rails3'
+    gem.summary     = 'Small library that will help you to port a Merb-based app to Rails3'
+    gem.email       = "tech@llp.pl"
+    gem.homepage    = "http://github.com/LunarLogicPolska/merb-to-rails3"
+    gem.authors     = ['Marcin Kulik', 'Piotr Solnica']
 
-Rake::GemPackageTask.new(spec) do |pkg| 
-  pkg.need_tar = true 
-end 
+    gem.has_rdoc    = false
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts 'Jeweler (or a dependency) not available. Install it with: sudo gem ' \
+       'install jeweler'
+end
